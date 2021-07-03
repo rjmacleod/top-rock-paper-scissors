@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissors</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <script>
+        function computerPlay() {
+            let possibleMoves = ['Rock', 'Paper', 'Scissors'];
+            let randomMoveIndex = (Math.floor(Math.random()*3));
+            return possibleMoves[randomMoveIndex];
+        }
+
+        function getPlayerMove() {
+            while(true) {
+                playerInput = prompt("Please select (r)ock, (p)aper or (s)cissors.");
+                switch(playerInput) {
+                    case 'r': return 'Rock';
+                    case 'p': return 'Paper';
+                    case 's': return 'Scissors';
+                    default: break;
+                }
+            }
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            if(playerSelection === computerSelection) {
+                return "Tie! " + playerSelection + " ties " + computerSelection + ".";
+            }
+            else if((playerSelection === 'Rock' && computerSelection === 'Scissors')
+            || (playerSelection === 'Scissors' && computerSelection === 'Paper')
+            || (playerSelection === 'Paper' && computerSelection === 'Rock')) {
+                return "You win! " + playerSelection + " beats " + computerSelection + ".";
+            }
+            else {
+                return "You lose! " + computerSelection + " beats " + playerSelection + ".";
+            }
+        }
+
+        function game() {
+            console.log("Rock paper scissors match! Best of 5 wins.")
+            let playerScore = 0;
+            let computerScore = 0;
+            while(playerScore < 3 && computerScore < 3) {
+                let playerSelection = getPlayerMove();
+                let round = playRound(playerSelection, computerPlay());
+                if(round.charAt(4) === 'w') playerScore++;
+                else if(round.charAt(4) === 'l') computerScore++;
+                console.log(round + " The current score is " + playerScore + " to " + computerScore + ".");
+            }
+            let winner = (playerScore === 3) ? "Player" : "Computer"; 
+            console.log("Game over. " + winner + " wins.");
+        }
+
+        game();
+
+
+    </script>
+</body>
+</html>
